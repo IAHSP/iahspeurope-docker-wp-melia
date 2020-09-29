@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+  iahspeurope-melia-wp-prod:
+    image: iahspeurope-melia:0.0.3
+    volumes:
+      # PHP Settings
+      - "./artifacts/php.conf.main.ini:/usr/local/etc/php/conf.d/php.conf.main.ini"
+      - "./artifacts/php.conf.uploads.ini:/usr/local/etc/php/conf.d/php.conf.uploads.ini"
+      # WordPress
+      - "./artifacts/wp-content:/var/www/html/wp-content"
+      - "./artifacts/google92ba64556c8dfeb1.html:/var/www/html/google92ba64556c8dfeb1.html"
+    ports:
+      - "8104"
+    networks:
+      - nginx-proxy
+    restart: always
+    container_name: iahspeurope-melia-wp-prod
+    environment:
+      WORDPRESS_DB_HOST: ${IAHSPEUROPE_MELIA_WORDPRESS_DB_HOST}
+      WORDPRESS_DB_NAME: ${IAHSPEUROPE_MELIA_WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${IAHSPEUROPE_MELIA_WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${IAHSPEUROPE_MELIA_WORDPRESS_DB_PASSWORD}
+      WORDPRESS_CONFIG_EXTRA: |
+        /* Fix site URL. */
+        define("WP_HOME", "https://melia.iahspeurope.com");
+        define("WP_SITEURL", "https://melia.iahspeurope.com");
+
+        define( 'WPOSES_AWS_ACCESS_KEY_ID',     '$${IAHSPEUROPE_MELIA_WPOSES_AWS_ACCESS_KEY_ID}' );
+        define( 'WPOSES_AWS_SECRET_ACCESS_KEY', '$${IAHSPEUROPE_MELIA_WPOSES_AWS_SECRET_ACCESS_KEY}' );
+
+        /* WordFence to DB */
+        define('WFWAF_STORAGE_ENGINE', 'mysqli');
+networks:
+  nginx-proxy:
+    external: true
