@@ -23,11 +23,11 @@ services:
       WORDPRESS_DB_PASSWORD: ${IAHSPEUROPE_MELIA_WORDPRESS_DB_PASSWORD}
       WORDPRESS_CONFIG_EXTRA: |
         /* Fix site URL. */
-        define("WP_HOME", "https://melia.iahspeurope.com");
-        define("WP_SITEURL", "https://melia.iahspeurope.com");
+        define("WP_HOME", "https://www.iahspeurope.com");
+        define("WP_SITEURL", "https://www.iahspeurope.com");
 
-        define( 'WPOSES_AWS_ACCESS_KEY_ID',     '$${IAHSPEUROPE_MELIA_WPOSES_AWS_ACCESS_KEY_ID}' );
-        define( 'WPOSES_AWS_SECRET_ACCESS_KEY', '$${IAHSPEUROPE_MELIA_WPOSES_AWS_SECRET_ACCESS_KEY}' );
+        define( 'WPOSES_AWS_ACCESS_KEY_ID',     '${IAHSPEUROPE_MELIA_WPOSES_AWS_ACCESS_KEY_ID}' );
+        define( 'WPOSES_AWS_SECRET_ACCESS_KEY', '${IAHSPEUROPE_MELIA_WPOSES_AWS_SECRET_ACCESS_KEY}' );
 
         /* WordFence to DB */
         define('WFWAF_STORAGE_ENGINE', 'mysqli');
